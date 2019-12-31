@@ -44,7 +44,7 @@ namespace PublicTransportRealtime.Data
 
     public partial class TelemetryEventData
     {
-        public static TelemetryEventData FromJson(string json) => JsonConvert.DeserializeObject<TelemetryEventData>(json.Split(new[] { "\n\n" }, StringSplitOptions.None).Last(), PublicTransport.Data.Converter.Settings);
+        public static TelemetryEventData FromJson(string json) => JsonConvert.DeserializeObject<TelemetryEventData>(json.Split(new[] { "\n\n" }, StringSplitOptions.None).Last(), Converter.Settings);
     }
 
     public static class Serialize
