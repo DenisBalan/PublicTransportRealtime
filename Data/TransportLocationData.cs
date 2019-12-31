@@ -42,14 +42,14 @@ namespace PublicTransportRealtime.Data
         public long Route { get; set; }
     }
 
-    public partial class TelemetryEventData
+    public partial class TransportLocationData
     {
-        public static TelemetryEventData FromJson(string json) => JsonConvert.DeserializeObject<TelemetryEventData>(json.Split(new[] { "\n\n" }, StringSplitOptions.None).Last(), Converter.Settings);
+        public static TransportLocationData FromJson(string json) => JsonConvert.DeserializeObject<TransportLocationData>(json.Split(new[] { "\n\n" }, StringSplitOptions.None).Last(), Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this TelemetryEventData self) => JsonConvert.SerializeObject(self, Converter.Settings);
+        public static string ToJson(this TransportLocationData self) => JsonConvert.SerializeObject(self, Converter.Settings);
     }
 
     internal static class Converter

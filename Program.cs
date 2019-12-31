@@ -20,9 +20,13 @@ namespace PublicTransportRealtime
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+            .ConfigureAppConfiguration((builderContext, config) =>
+            {
+                var env = builderContext.HostingEnvironment;
+                config.AddJsonFile("chisinau_route_config.json");
+            }).ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
     }
 }

@@ -1,0 +1,124 @@
+﻿{
+  "EndpointConfiguration": {
+    "Url": "xx",
+    "Routes": [
+      {
+        "MqttId": 56,
+        "RotueId": 11
+      },
+      {
+        "MqttId": 57,
+        "RotueId": 10
+      },
+      {
+        "MqttId": 58,
+        "RotueId": 9
+      },
+      {
+        "MqttId": 55,
+        "RotueId": 12
+      },
+      {
+        "MqttId": 52,
+        "RotueId": 20
+      },
+      {
+        "MqttId": 53,
+        "RotueId": 17
+      },
+      {
+        "MqttId": 54,
+        "RotueId": 13
+      },
+      {
+        "MqttId": 4,
+        "RotueId": 3
+      },
+      {
+        "MqttId": 64,
+        "RotueId": 2
+      },
+      {
+        "MqttId": 65,
+        "RotueId": 1
+      },
+      {
+        "MqttId": 62,
+        "RotueId": 4
+      },
+      {
+        "MqttId": 59,
+        "RotueId": 8
+      },
+      {
+        "MqttId": 60,
+        "RotueId": 7
+      },
+      {
+        "MqttId": 61,
+        "RotueId": 5
+      },
+      {
+        "MqttId": 5,
+        "RotueId": 21
+      },
+      {
+        "MqttId": 41,
+        "RotueId": 35
+      },
+      {
+        "MqttId": 42,
+        "RotueId": 34
+      },
+      {
+        "MqttId": 38,
+        "RotueId": 31
+      },
+      {
+        "MqttId": 40,
+        "RotueId": 36
+      },
+      {
+        "MqttId": 1,
+        "RotueId": 30
+      },
+      {
+        "MqttId": 2,
+        "RotueId": 32
+      },
+      {
+        "MqttId": 39,
+        "RotueId": 37
+      },
+      {
+        "MqttId": 48,
+        "RotueId": 24
+      },
+      {
+        "MqttId": 49,
+        "RotueId": 23
+      },
+      {
+        "MqttId": 3,
+        "RotueId": 22
+      },
+      {
+        "MqttId": 47,
+        "RotueId": 25
+      },
+      {
+        "MqttId": 44,
+        "RotueId": 29
+      },
+      {
+        "MqttId": 45,
+        "RotueId": 27
+      },
+      {
+        "MqttId": 46,
+        "RotueId": 26
+      }
+    ]
+
+  }
+}
