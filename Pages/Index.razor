@@ -1,2 +1,20 @@
 @page "/"
-<SubscriptionComponent Configuration="EndpointConfiguration.Value"></SubscriptionComponent>
+@inject IModalService Modal
+
+@foreach(var g in ActiveSubs)
+{
+    @g.RouteData.RouteId
+}
+<button @onclick="@ShowRouteSelection" class="btn btn-primary">View Movies</button>
+
+@code{
+    
+    void ShowRouteSelection()
+    {
+        var parameters = new ModalParameters();
+        parameters.Add("IndexComponent", this);
+        parameters.Add("Configuration", EndpointConfiguration.Value);
+
+        Modal.Show<SubscriptionComponent>(string.Empty, parameters);
+    }
+}

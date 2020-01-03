@@ -1,6 +1,19 @@
-﻿
-@foreach (var route in Configuration.Routes)
-{
-    <p>@route.MqttId - @route.RouteId</p>
-    <br />
-}
+﻿@inject IModalService ModalService
+
+
+    <div class="simple-form">
+
+        <div class="btn-group btn-matrix">
+            @foreach (var route in Subscriptions)
+            {
+                <label class="btn btn-default" role="button">
+                    <input @bind="@route.IsActive" type="checkbox" autocomplete="off" /> @route.RouteData.RouteId
+                </label>
+            }
+        </div>
+            @foreach (var route in ActiveSubscriptions)
+            {
+                <p>@route.RouteData.RouteId</p> <!---->
+            }
+            <button @onclick="Cancel" class="btn btn-primary">Submit</button>
+        </div>
