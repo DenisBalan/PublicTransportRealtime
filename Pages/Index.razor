@@ -1,20 +1,24 @@
 @page "/"
-@inject IModalService Modal
 
-@foreach(var g in ActiveSubs)
+@if (Subscriptions != null)
 {
-    @g.RouteData.RouteId
+    @foreach (var g in Subscriptions)
+    {
+        @g.RouteData.RouteId
+        @if (g.IsActive)
+        {
+            <b style="color:red">!</b>
+        }
+    }
 }
-<button @onclick="@ShowRouteSelection" class="btn btn-primary">View Movies</button>
+
+
+<SubscriptionComponent Subscriptions="@Subscriptions" OnSelectionChange="@ComponentUpdated"></SubscriptionComponent>
 
 @code{
-    
-    void ShowRouteSelection()
-    {
-        var parameters = new ModalParameters();
-        parameters.Add("IndexComponent", this);
-        parameters.Add("Configuration", EndpointConfiguration.Value);
 
-        Modal.Show<SubscriptionComponent>(string.Empty, parameters);
+    void ComponentUpdated(SubscriptionModel args)
+    {
+        StateHasChanged();
     }
 }

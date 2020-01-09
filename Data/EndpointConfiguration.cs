@@ -8,6 +8,6 @@ namespace PublicTransportRealtime.Data
     public class EndpointConfiguration
     {
         public string Url { get; set; }
-        public RouteData[] Routes { get; set; }
+        public RouteDataInformation[] Routes { get; set; }
     }
 }

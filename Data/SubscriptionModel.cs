@@ -9,12 +9,11 @@ namespace PublicTransportRealtime.Data
     public class SubscriptionModel: IComparable<SubscriptionModel>, IEqualityComparer<SubscriptionModel>
     {
         public bool IsActive { get; set; }
-        public RouteData RouteData { get; set; }
+        public RouteDataInformation RouteData { get; set; }
 
-        public static SubscriptionModel FromRouteData(RouteData rd, bool isSelected)
+        public static SubscriptionModel FromRouteData(RouteDataInformation rd)
         => new SubscriptionModel
         {
-            IsActive = isSelected,
             RouteData = rd
         };
 
