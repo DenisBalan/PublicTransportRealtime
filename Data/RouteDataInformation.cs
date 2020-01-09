@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PublicTransportRealtime.Data
 {
-    public class RouteData
+    public class RouteDataInformation
     {
         public int RouteId { get; set; }
         public int MqttId { get; set; }

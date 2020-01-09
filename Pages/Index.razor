@@ -1,2 +1,24 @@
 @page "/"
-<SubscriptionComponent Configuration="EndpointConfiguration.Value"></SubscriptionComponent>
+
+@if (Subscriptions != null)
+{
+    @foreach (var g in Subscriptions)
+    {
+        @g.RouteData.RouteId
+        @if (g.IsActive)
+        {
+            <b style="color:red">!</b>
+        }
+    }
+}
+
+
+<SubscriptionComponent Subscriptions="@Subscriptions" OnSelectionChange="@ComponentUpdated"></SubscriptionComponent>
+
+@code{
+
+    void ComponentUpdated(SubscriptionModel args)
+    {
+        StateHasChanged();
+    }
+}

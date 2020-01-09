@@ -12,15 +12,25 @@ using System.Threading.Tasks;
 
 namespace PublicTransportRealtime.Pages
 {
-    public partial class Index: ComponentBase, IDisposable
+    public partial class Index : ComponentBase, IDisposable
     {
-        [Inject] IOptions<EndpointConfiguration> EndpointConfiguration { get; set; }
+        public SubscriptionModel[] Subscriptions { get; set; }
+        public SubscriptionModel[] ActiveSubscriptions => Subscriptions.Where(k => k.IsActive).ToArray();
         [Inject] IJSRuntime ClientRuntime { get; set; }
-        [Inject] TransportDataProvider Service { get; set; }
-        public SockJS SockJs { get; set; }
+        [Inject] TransportDataProviderService Service { get; set; }
+        public SockJS SocketJsClient { get; set; }
         public void Dispose()
         {
-            SockJs?.Close();
+            Dispose(true);
         }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                SocketJsClient?.Close();
+            }
+        }
+        
+
     }
 }
