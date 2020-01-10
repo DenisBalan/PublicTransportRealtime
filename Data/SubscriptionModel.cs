@@ -8,6 +8,12 @@ namespace PublicTransportRealtime.Data
 {
     public class SubscriptionModel: IComparable<SubscriptionModel>, IEqualityComparer<SubscriptionModel>
     {
+        // another way of doing EDA
+        // remove @onclick="(() => OnChecked(route))" from Component
+        // private bool _isActive;
+        // public bool IsActive { get { return _isActive; } set { _isActive = value; OnChange?.Invoke(this, this);  } }
+        // public event EventHandler<SubscriptionModel> OnChange;
+
         public bool IsActive { get; set; }
         public RouteDataInformation RouteData { get; set; }
 

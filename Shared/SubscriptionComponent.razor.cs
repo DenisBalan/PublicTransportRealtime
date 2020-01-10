@@ -18,9 +18,7 @@ namespace PublicTransportRealtime.Shared
 
         public async Task OnChecked(SubscriptionModel v)
         {
-            v.IsActive = !v.IsActive;
             await OnSelectionChange.InvokeAsync(v);
-
         }
     }
 }
