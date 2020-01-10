@@ -24,7 +24,7 @@
                         @foreach (var route in Subscriptions)
                         {
                             <label class="btn btn-default" role="button">
-                                <input @onchange="(() => OnChecked(route))" type="checkbox" autocomplete="off" /> @route.RouteData.RouteId
+                                <input @onclick="(() => OnChecked(route))" @bind="route.IsActive" type="checkbox" autocomplete="off" /> @route.RouteData.RouteId
                             </label>
                         }
                     }

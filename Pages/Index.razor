@@ -13,12 +13,4 @@
 }
 
 
-<SubscriptionComponent Subscriptions="@Subscriptions" OnSelectionChange="@ComponentUpdated"></SubscriptionComponent>
-
-@code{
-
-    void ComponentUpdated(SubscriptionModel args)
-    {
-        StateHasChanged();
-    }
-}
+<SubscriptionComponent Subscriptions="@Subscriptions" OnSelectionChange="@RouteChecked"></SubscriptionComponent>
