@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using PublicTransportRealtime.Data;
@@ -12,25 +13,48 @@ using System.Threading.Tasks;
 
 namespace PublicTransportRealtime.Pages
 {
-    public partial class Index : ComponentBase, IDisposable
+    public partial class Index : ComponentBase
     {
         public SubscriptionModel[] Subscriptions { get; set; }
-        public SubscriptionModel[] ActiveSubscriptions => Subscriptions.Where(k => k.IsActive).ToArray();
+        public Func<SubscriptionModel[]> ActiveSubscriptions => () => Subscriptions.Where(k => k.IsActive).ToArray();
         [Inject] IJSRuntime ClientRuntime { get; set; }
         [Inject] TransportDataProviderService Service { get; set; }
-        public SockJS SocketJsClient { get; set; }
-        public void Dispose()
+        [Inject] ILocalStorageService LocalStorage { get; set; }
+        private bool canRunJs;
+        protected override async Task OnInitializedAsync()
         {
-            Dispose(true);
+            Subscriptions = (await Service.GetRouteData())
+                .Select(SubscriptionModel.FromRouteData).ToArray();
+            Service.OnTelemetryArrived += Service_OnTelemetryArrived;
+            await Task.Run(Service.StartProvidingTelemetry);
         }
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                SocketJsClient?.Close();
-            }
-        }
-        
 
+        private async void Service_OnTelemetryArrived(object sender, TransportLocationData e)
+        {
+            if (!canRunJs) return;
+            await ClientRuntime.InvokeVoidAsync("console.log", new[] { e });
+        }
+
+        public async Task RouteChecked(SubscriptionModel route)
+        {
+            await ClientRuntime.InvokeVoidAsync("handleActiveRoutes", new[] { ActiveSubscriptions() });
+            await LocalStorage.SetItemAsync("all", ActiveSubscriptions());
+            _ = Task.Run(() => Service.OnSubscriptionListChanged.Invoke(route));
+        }
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (!firstRender) return;
+            var routesFromClient = await LocalStorage.GetItemAsync<SubscriptionModel[]>("all") ?? Enumerable.Empty<SubscriptionModel>();
+            var realObjects = routesFromClient.ToDictionary(h => h, h => Subscriptions.FirstOrDefault(f => f.Equals(f, h)));
+
+            realObjects.ToList().ForEach(async (x) =>
+            {
+                // PATCH, make runtime object properties like in saved from localstorage
+                x.Value.IsActive = x.Key.IsActive;
+                await RouteChecked(x.Value);
+            });
+            canRunJs = true;
+            StateHasChanged();
+        }
     }
 }
