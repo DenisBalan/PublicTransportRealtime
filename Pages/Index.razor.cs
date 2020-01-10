@@ -13,25 +13,33 @@ using System.Threading.Tasks;
 
 namespace PublicTransportRealtime.Pages
 {
-    public partial class Index : ComponentBase, IDisposable
+    public partial class Index : ComponentBase
     {
         public SubscriptionModel[] Subscriptions { get; set; }
         public Func<SubscriptionModel[]> ActiveSubscriptions => () => Subscriptions.Where(k => k.IsActive).ToArray();
         [Inject] IJSRuntime ClientRuntime { get; set; }
         [Inject] TransportDataProviderService Service { get; set; }
-        //[Inject] 
-        SockJS SocketJsClient { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
+        private bool canRunJs;
         protected override async Task OnInitializedAsync()
         {
             Subscriptions = (await Service.GetRouteData())
                 .Select(SubscriptionModel.FromRouteData).ToArray();
+            Service.OnTelemetryArrived += Service_OnTelemetryArrived;
+            await Task.Run(Service.StartProvidingTelemetry);
+        }
+
+        private async void Service_OnTelemetryArrived(object sender, TransportLocationData e)
+        {
+            if (!canRunJs) return;
+            await ClientRuntime.InvokeVoidAsync("console.log", new[] { e });
         }
 
         public async Task RouteChecked(SubscriptionModel route)
         {
             await ClientRuntime.InvokeVoidAsync("handleActiveRoutes", new[] { ActiveSubscriptions() });
             await LocalStorage.SetItemAsync("all", ActiveSubscriptions());
+            _ = Task.Run(() => Service.OnSubscriptionListChanged.Invoke(route));
         }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -45,20 +53,8 @@ namespace PublicTransportRealtime.Pages
                 x.Value.IsActive = x.Key.IsActive;
                 await RouteChecked(x.Value);
             });
-
+            canRunJs = true;
             StateHasChanged();
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                SocketJsClient?.Close();
-            }
         }
     }
 }

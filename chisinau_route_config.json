@@ -1,6 +1,7 @@
 ﻿{
   "EndpointConfiguration": {
-    "Url": "xx",
+    "Url": "https://rtec.dekart.com/webstomp",
+    "ConnectionString": "CONNECT\nlogin:public_rtec\npasscode:iWillHackItInVisualBasic\nhost:nazar\naccept-version:1.2\nheart-beat:0,0\n\n\u0000",
     "Routes": [
       {
         "MqttId": 56,
