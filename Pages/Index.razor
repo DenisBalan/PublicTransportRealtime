@@ -1,16 +1,23 @@
 @page "/"
 
-@if (Subscriptions != null)
-{
-    @foreach (var g in Subscriptions)
+    @if (Subscriptions != null)
     {
-        @g.RouteData.RouteId
-        @if (g.IsActive)
+        @foreach (var g in Subscriptions)
         {
-            <b style="color:red">!</b>
+            @g.RouteData.RouteId
+            @if (g.IsActive)
+            {
+                <b style="color:red">!</b>
+            }
         }
     }
-}
 
 
 <SubscriptionComponent Subscriptions="@Subscriptions" OnSelectionChange="@RouteChecked"></SubscriptionComponent>
+
+<div class="container">
+    <h3>Map</h3>
+    <div id="osm-map"></div>
+    <div class="map-parent">
+    </div>
+</div>

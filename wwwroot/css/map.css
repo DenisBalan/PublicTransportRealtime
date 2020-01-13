@@ -1,0 +1,10 @@
+﻿#osm-map {
+    top: 0;
+    bottom: 0;
+    height: 600px;
+    width: 100%;
+}
+
+.map-parent {
+    position: relative;
+}
