@@ -5,11 +5,9 @@
 'use strict';
 var main = ((ctx) => {
     ctx.handleActiveRoutes = (routeInfoArr) => {
-        var toRemove = Object.keys(routecache);
         var active = routeInfoArr.map(g => g.routeData.routeId);
-        console.log(toRemove);
-        console.log(active);
-        // todo.
+        var toRemove = Object.keys(routecache).filter(x => !active.includes(Number(x)));
+        toRemove.forEach(ctx.unsubs);
     };
     var routecache = {}; //route => board
     var
@@ -35,12 +33,13 @@ var main = ((ctx) => {
         cache[obj.board] = cache[obj.board] || [];
         cache[obj.board].push(obj);
         if (!was) {
-            initRealtime(obj.board);
+            initRealtime(obj.board, Number(obj.route));
             (routecache[obj.route] = routecache[obj.route] || []).push(obj.board);
         }
     };
     ctx.unsubs = (route) => {
-        while ((board = routecache[route].pop())) ((v) => {
+        var board;
+        while (board = (routecache[route] || []).pop()) ((v) => {
             rts[v].stop();
             map.removeLayer(rts[v]);
             cache[v] = undefined;
@@ -48,7 +47,7 @@ var main = ((ctx) => {
         })(board);
     };
 
-    var initRealtime = (board) => {
+    var initRealtime = (board, routename) => {
         var realtime = rts[board] ||
             L.realtime(function (success, error) {
                 var gg = cache[board].shift();
@@ -57,7 +56,8 @@ var main = ((ctx) => {
                 {
                     "geometry": { "type": "Point", "coordinates": [gg.longitude, gg.latitude] }, "type": "Feature",
                     "properties": {
-                        "name": "Route " + board
+                        "name": "Troleybus " + board,
+                        "route": routename
                     }
                 };
                 (function (data) {
@@ -73,7 +73,40 @@ var main = ((ctx) => {
                 })(data);
 
             }, {
-                interval: 250
+                interval: 250,
+
+                pointToLayer: function (feature, latlng) {
+                    // https://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-javascript
+                    var hashCode = (str) => { // java String#hashCode
+                        var hash = 0;
+                        for (var i = 0; i < str.length; i++) {
+                            hash = str.charCodeAt(i) + ((hash << 5) - hash);
+                        }
+                        return hash;
+                    }
+                    var intToRGB = (i) => {
+                        var c = (i & 0x00FFFFFF)
+                            .toString(16)
+                            .toUpperCase();
+
+                        return "00000".substring(0, 6 - c.length) + c;
+                    }
+                    var invertHex = (hex) => {
+                        return (Number(`0x1${hex}`) ^ 0xFFFFFF).toString(16).substr(1).toUpperCase()
+                    }
+                    var bg = intToRGB(0xffffff / (10 * feature.properties.route));
+                    var inv = 'ffffff';//invertHex(bg);
+                    return L.marker(latlng, {
+                        'icon': L.icon({
+                            iconUrl: '//dummyimage.com/25x25/' +
+                                bg + '/' +
+                                inv + '.png&text=' + feature.properties.route,
+                            iconSize: [25, 25], // size of the icon
+                            iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
+                            popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
+                        })
+                    }).bindPopup(`<b>${feature.properties.route}</b><br>${feature.properties.name}`);
+                }
             }).addTo(map);
         rts[board] = realtime;
     };
@@ -284,7 +317,7 @@ var main = ((ctx) => {
 
         var esriVectorTileOptions = {
             rendererFactory: L.canvas.tile,
-            attribution: '© Point',
+            attribution: '© Map.md',
             vectorTileLayerStyles: vectorTileStyling,
         };
 

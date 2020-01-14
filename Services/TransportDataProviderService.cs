@@ -29,7 +29,6 @@ namespace PublicTransportRealtime.Services
             SockJS.AddEventListener("open", (sender, e) =>
             {
                 SockJS.Send(EndpointConfiguration.Value.ConnectionString);
-                SubscriptionModels.ToList().ForEach(ProcessChanges);
             });
             SockJS.AddEventListener("message", (sender, obj) =>
             {
@@ -37,7 +36,12 @@ namespace PublicTransportRealtime.Services
                 {
                     var dataString = msg.Data.ToString();
                     if (dataString.Contains("No subscription found")) return;
-                    canSend |= dataString.StartsWith("CONNECTED");
+                    var conn = dataString.StartsWith("CONNECTED");
+                    canSend |= conn;
+                    if (conn)
+                    {
+                        SubscriptionModels.ToList().ForEach(ProcessChanges);
+                    }
                     var kk = TransportLocationData.FromJson(dataString);
                     if (kk is null) return;
                     OnTelemetryArrived?.Invoke(this, kk);
