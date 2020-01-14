@@ -1,122 +1,123 @@
 ﻿{
   "EndpointConfiguration": {
-    "Url": "xx",
+    "Url": "https://rtec.dekart.com/webstomp",
+    "ConnectionString": "CONNECT\nlogin:public_rtec\npasscode:iWillHackItInVisualBasic\nhost:nazar\naccept-version:1.2\nheart-beat:0,0\n\n\u0000",
     "Routes": [
       {
         "MqttId": 56,
-        "RotueId": 11
+        "RouteId": 11
       },
       {
         "MqttId": 57,
-        "RotueId": 10
+        "RouteId": 10
       },
       {
         "MqttId": 58,
-        "RotueId": 9
+        "RouteId": 9
       },
       {
         "MqttId": 55,
-        "RotueId": 12
+        "RouteId": 12
       },
       {
         "MqttId": 52,
-        "RotueId": 20
+        "RouteId": 20
       },
       {
         "MqttId": 53,
-        "RotueId": 17
+        "RouteId": 17
       },
       {
         "MqttId": 54,
-        "RotueId": 13
+        "RouteId": 13
       },
       {
         "MqttId": 4,
-        "RotueId": 3
+        "RouteId": 3
       },
       {
         "MqttId": 64,
-        "RotueId": 2
+        "RouteId": 2
       },
       {
         "MqttId": 65,
-        "RotueId": 1
+        "RouteId": 1
       },
       {
         "MqttId": 62,
-        "RotueId": 4
+        "RouteId": 4
       },
       {
         "MqttId": 59,
-        "RotueId": 8
+        "RouteId": 8
       },
       {
         "MqttId": 60,
-        "RotueId": 7
+        "RouteId": 7
       },
       {
         "MqttId": 61,
-        "RotueId": 5
+        "RouteId": 5
       },
       {
         "MqttId": 5,
-        "RotueId": 21
+        "RouteId": 21
       },
       {
         "MqttId": 41,
-        "RotueId": 35
+        "RouteId": 35
       },
       {
         "MqttId": 42,
-        "RotueId": 34
+        "RouteId": 34
       },
       {
         "MqttId": 38,
-        "RotueId": 31
+        "RouteId": 31
       },
       {
         "MqttId": 40,
-        "RotueId": 36
+        "RouteId": 36
       },
       {
         "MqttId": 1,
-        "RotueId": 30
+        "RouteId": 30
       },
       {
         "MqttId": 2,
-        "RotueId": 32
+        "RouteId": 32
       },
       {
         "MqttId": 39,
-        "RotueId": 37
+        "RouteId": 37
       },
       {
         "MqttId": 48,
-        "RotueId": 24
+        "RouteId": 24
       },
       {
         "MqttId": 49,
-        "RotueId": 23
+        "RouteId": 23
       },
       {
         "MqttId": 3,
-        "RotueId": 22
+        "RouteId": 22
       },
       {
         "MqttId": 47,
-        "RotueId": 25
+        "RouteId": 25
       },
       {
         "MqttId": 44,
-        "RotueId": 29
+        "RouteId": 29
       },
       {
         "MqttId": 45,
-        "RotueId": 27
+        "RouteId": 27
       },
       {
         "MqttId": 46,
-        "RotueId": 26
+        "RouteId": 26
       }
     ]
 

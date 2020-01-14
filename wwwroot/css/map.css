@@ -1,0 +1,21 @@
+﻿#osm-map {
+    top: 0;
+    bottom: 0;
+    height: 600px;
+    width: 100%;
+}
+
+.map-parent {
+    position: relative;
+}
+.leaflet-marker-icon {
+    border-radius: 50%;
+}
+
+ul.horizontal-list {
+    list-style: none;
+}
+
+ul.horizontal-list, ul.horizontal-list li {
+    display: inline;
+}
