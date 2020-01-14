@@ -11,3 +11,11 @@
 .leaflet-marker-icon {
     border-radius: 50%;
 }
+
+ul.horizontal-list {
+    list-style: none;
+}
+
+ul.horizontal-list, ul.horizontal-list li {
+    display: inline;
+}
