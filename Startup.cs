@@ -31,7 +31,7 @@ namespace PublicTransportRealtime
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<TransportDataProviderService>();
+            services.AddTransient<TransportDataProviderService>();
             services.Configure<EndpointConfiguration>(
                 Configuration.GetSection(nameof(EndpointConfiguration))
                 );

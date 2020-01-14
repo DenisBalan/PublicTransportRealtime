@@ -32,14 +32,15 @@ namespace PublicTransportRealtime.Pages
         private async void Service_OnTelemetryArrived(object sender, TransportLocationData e)
         {
             if (!canRunJs) return;
-            await ClientRuntime.InvokeVoidAsync("console.log", new[] { e });
+            await ClientRuntime.InvokeVoidAsync("telemetryArrived", new[] { e });
         }
 
         public async Task RouteChecked(SubscriptionModel route)
         {
+            await Task.Delay(42);
+            Service.OnSubscriptionListChanged.Invoke(route);
             await ClientRuntime.InvokeVoidAsync("handleActiveRoutes", new[] { ActiveSubscriptions() });
             await LocalStorage.SetItemAsync("all", ActiveSubscriptions());
-            _ = Task.Run(() => Service.OnSubscriptionListChanged.Invoke(route));
         }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -54,6 +55,8 @@ namespace PublicTransportRealtime.Pages
                 await RouteChecked(x.Value);
             });
             canRunJs = true;
+
+            await ClientRuntime.InvokeVoidAsync("initMap");
             StateHasChanged();
         }
     }

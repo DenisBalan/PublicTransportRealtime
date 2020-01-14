@@ -1,16 +1,29 @@
 @page "/"
 
-@if (Subscriptions != null)
-{
-    @foreach (var g in Subscriptions)
+<div class="container">
+    <h3>Public Transport Realtime</h3>
+    <SubscriptionComponent Subscriptions="@Subscriptions" OnSelectionChange="@RouteChecked"></SubscriptionComponent>
+    Active:
+    @if (Subscriptions != null)
     {
-        @g.RouteData.RouteId
-        @if (g.IsActive)
-        {
-            <b style="color:red">!</b>
-        }
+        <ul class="horizontal-list">
+            @foreach (var g in ActiveSubscriptions())
+            {
+                <li>@g.RouteData.RouteId</li>
+            }
+        </ul>
     }
-}
-
-
-<SubscriptionComponent Subscriptions="@Subscriptions" OnSelectionChange="@RouteChecked"></SubscriptionComponent>
+    <p>
+        Demo project written in Blazor that shows realtime map of Chisinau public transport (feel free to fork it on <a href="https://github.com/DenisBalan/PublicTransportRealtime">github</a>)
+    </p>
+    <hr />
+    <div id="osm-map"></div>
+    <div class="map-parent">
+    </div>
+    <hr />
+    Thanks:
+    <ol>
+        <li><a href="https://www.dekart.com/">https://www.dekart.com/</a> - for providing opendata</li>
+        <li><a href="https://www.map.md/">https://www.map.md/</a> - for detailed Chisinau map layer</li>
+    </ol>
+</div>
