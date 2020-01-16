@@ -1,4 +1,4 @@
-<img src="docs/trolleymotion_eu.png" alt="trolleymotion.eu logo" width="150px" />
+<a href="https://publictransportmoldova.azurewebsites.net/"><img src="docs/trolleymotion_eu.png" alt="trolleymotion.eu logo" width="150px" /></a>
 
 # PublicTransportRealtime
 
