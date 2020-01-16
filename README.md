@@ -1,4 +1,5 @@
-![trolleymotion logo][logo]
+<img src="docs/trolleymotion_eu.png" alt="trolleymotion.eu logo" width="150px" />
+
 # PublicTransportRealtime
 
 ![Version Badge](https://img.shields.io/github/v/tag/DenisBalan/PublicTransportRealtime)
@@ -48,5 +49,4 @@ Credits
 
 *Made in Chisinau with ❤*
 
-[logo]: docs/trolleymotion_eu.png "trolleymotion.eu logo"
 [demo]: https://user-images.githubusercontent.com/33955091/72536670-58ce2e80-3883-11ea-871c-240c9b6b0d1f.gif "Chisinau realtime public transport"
