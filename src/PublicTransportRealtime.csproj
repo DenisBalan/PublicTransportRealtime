@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="syp.biz.SockJS.NET.Client" Version="1.4.0" />
     <PackageReference Include="syp.biz.SockJS.NET.Common" Version="1.4.0" />
     <PackageReference Include="Blazored.LocalStorage" Version="2.1.1" />
